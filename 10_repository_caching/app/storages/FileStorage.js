@@ -21,7 +21,7 @@ class FileStorage {
   getAll() {
     // const cacheLength = Object.keys(this._data).length;
     if (this._allFilesCached) {
-      return this._data;
+      return Object.values(this._data);
     }
 
     const files = fs.readdirSync(this._path);
