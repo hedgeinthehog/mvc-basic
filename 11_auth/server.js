@@ -5,7 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const StudentsController = require("./app/controllers/StudentsController");
+const studentsRouter = require("./app/routes/api");
 
 const server = express();
 
@@ -23,11 +23,7 @@ server.get("/", function (req, res) {
   res.render("pages/index", { content: "This is home" });
 });
 // students
-server.get("/students/create", StudentsController.renderForm);
-server.post("/students/create", StudentsController.create);
-server.get("/students/:studentId?", StudentsController.main);
-server.post("/students/delete/:studentId?", StudentsController.delete);
-server.post("/students/:studentId?", StudentsController.update);
+server.use("/students", studentsRouter);
 // fallback to error page
 server.use("*", function (req, res) {
   res.render("pages/error");
