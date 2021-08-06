@@ -5,9 +5,9 @@ const studentsController = require('../../controllers/StudentsController');
 
 router.get('/', studentsController.getAll);
 router.get('/create', studentsController.renderForm)
-  .post('/create', StudentsController.create);
+  .post('/create', studentsController.create);
 router.get('/:studentId', studentsController.getOne)
-  .post('/:studentId', StudentsController.update);
+  .post('/:studentId', studentsController.update);
 router.delete('/delete/:studentId', studentsController.delete);
 
 module.exports = router;

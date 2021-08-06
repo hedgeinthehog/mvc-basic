@@ -5,7 +5,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const studentsRouter = require("./app/routes/api");
+const { studentsRouter } = require("./app/routes/api");
 
 const server = express();
 
