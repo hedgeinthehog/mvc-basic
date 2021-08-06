@@ -1,12 +1,12 @@
 const Student = require("../models/Student");
-// const FileStorage = require("../storages/FileStorage");
-const DbStorage = require("../storages/DbStorage");
+const FileStorage = require("../storages/FileStorage");
+// const DbStorage = require("../storages/DbStorage");
 
 // knowledge of how and where to store data
 class StudentsRepository {
   constructor() {
-    // this._storage = new FileStorage("students");
-    this._storage = new DbStorage("students");
+    this._storage = new FileStorage("students");
+    // this._storage = new DbStorage("students");
   }
 
   async getAll() {
