@@ -8,6 +8,6 @@ router.get('/create', studentsController.renderForm)
   .post('/create', studentsController.create);
 router.get('/:studentId', studentsController.getOne)
   .post('/:studentId', studentsController.update);
-router.delete('/delete/:studentId', studentsController.delete);
+router.post('/delete/:studentId', studentsController.delete);
 
 module.exports = router;

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../partials/head'); %>
+</head>
+
+<body>
+  <%- include('../partials/navigation'); %>
+
+    <h4>
+      <%= student.name %>
+        <%= student.surname %>
+    </h4>
+    <div>
+      <p>Age: <%= student.age %>
+      </p>
+      <p>Gender: <%= student.gender %>
+      </p>
+
+      <form action="/students/delete/<%= student.id_student %>" method="POST">
+        <button type="submit" style="color: red">Delete Student</button>
+      </form>
+    </div>
+</body>
+
+</html>

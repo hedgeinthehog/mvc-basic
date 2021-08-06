@@ -2,20 +2,29 @@ const StudentsRepository = require("../repositories/StudentsRepository");
 
 class StudentsController {
     // used for students list and individual student page
-  async main(req, res) {
-    const { studentId } = req.params;
-    if (studentId) {
-      const student = await StudentsRepository.getById(studentId);
-      if (!student) {
-        res.render("pages/error");
-      } else {
-        res.render("pages/studentForm", { student });
-      }
-    } else {
+  async getAll(_, res, next) {
+    try {
       const students = await StudentsRepository.getAll();
-      res.render("pages/students", { students });
+      res.render('pages/students', { students } );
+    } catch (e) {
+      next(e);
+    }
+  };
+
+  async getOne(req, res, next) {
+    const { studentId } = req.params;
+    try {
+      const student = await StudentsRepository.getById(studentId);
+      if (student) {
+        res.render('pages/student', { student });
+      } else {
+        next();
+      }
+    } catch (e) {
+      next(e);
     }
   }
+
   // used for rendering create student form
   renderForm(req, res) {
       res.render("pages/studentForm", { student: undefined });

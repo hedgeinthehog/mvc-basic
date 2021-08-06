@@ -33,11 +33,5 @@
             <br />
             <button type="submit" style="color: green"><%= student ? 'Update' : 'Add' %> Student</button>
         </form>
-        <br /><br /><br />
-        <%- student ? `
-        <form action="/students/delete/${student.id}" method="POST">
-            <button type="submit" style="color: red">Delete Student</button>
-        </form>
-        ` : '' %>
     </body>
 </html>
