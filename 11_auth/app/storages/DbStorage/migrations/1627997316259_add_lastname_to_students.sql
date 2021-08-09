@@ -1,1 +1,0 @@
-ALTER TABLE students ADD `lastname` varchar(255) not null;

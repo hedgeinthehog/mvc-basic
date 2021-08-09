@@ -31,26 +31,38 @@ class StudentsController {
   }
 
   // used for POST request from the form, and adding new student
-  async create(req, res) {
-    const student = await StudentsRepository.create(req.body);
-    // redirect to new entry
-    res.redirect(`/students/${student.id}`);
+  async create(req, res, next) {
+    try {
+      const student = await StudentsRepository.create(req.body);
+      // redirect to new entry
+      res.redirect(`/students/${student.id}`);      
+    } catch (e) {
+      next(e)
+    }
   }
   
   // used for POST request from the form, and updating student
-  async update(req, res) {
+  async update(req, res, next) {
     const { studentId } = req.params;
-    const student = await StudentsRepository.update(studentId, req.body);
-    // return the same form
-    res.render("pages/studentForm", { student });
+    try {
+      const student = await StudentsRepository.update(studentId, req.body);
+      // return the same form
+      res.render("pages/studentForm", { student });      
+    } catch (e) {
+      next(e);      
+    }
   }
 
   // used for DELETE request from the form
-  async delete(req, res) {
+  async delete(req, res, next) {
     const { studentId } = req.params;
-    await StudentsRepository.delete(studentId);
-    // return to students list
-    res.redirect("/students");
+    try {
+      await StudentsRepository.delete(studentId);
+      // return to students list
+      res.redirect("/students");
+    } catch (e) {
+      next(e);
+    }
   }
 }
 
