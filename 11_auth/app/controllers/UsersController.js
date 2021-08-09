@@ -14,13 +14,13 @@ class usersController {
     const { username, password } = req.body;
     try {
       const user = await UsersRepository.getOne({ username });
-      if (user) return next({
+      if (Object.keys(user.getData()).length) return next({
         status: 409,
         message: 'User already exists',
       });
 
       await UsersRepository.create({ username, password });
-      res.status(201).redirect("pages/loginForm");
+      res.status(201).redirect("/users/login");
     } catch (e) {
       next(e);
     }
@@ -30,8 +30,11 @@ class usersController {
     const { username, password } = req.body;
     try {
       const user = await UsersRepository.getOne({ username });
-      if (!user || !user.comparePasswords(password)) {
-        return res.status(400).send('No user found');
+      if (!Object.keys(user.getData()).length || !(await user.comparePasswords(password))) {
+        return next({
+          status: 400,
+          message: 'User not found',
+        });
       };
 
       const { SECRET_KEY } = process.env;
