@@ -14,8 +14,6 @@ class DbStorage extends BaseStorage {
   }
   async getOne(filter) {
     const field = Object.entries(filter)[0];
-    console.log(field);
-    console.log(`${field[0]} = ${field[1]}`);
     const [rows] = await pool.promise().execute(`SELECT * FROM ${this._table} WHERE ${field[0]} = '${field[1]}'`);
     return rows[0];
   }
