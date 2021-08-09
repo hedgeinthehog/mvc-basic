@@ -5,7 +5,10 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 
-const { studentsRouter } = require("./app/routes/api");
+const {
+  studentsRouter,
+  usersRouter,
+} = require("./app/routes/api");
 
 const server = express();
 
@@ -17,17 +20,26 @@ server.set("views", path.resolve(__dirname, "app/views"));
 server.use(express.static(path.resolve(__dirname, "assets")));
 // used to parse req.body for POST,PUT requests
 server.use(express.urlencoded({ extended: false }));
+server.use(express.json());
 
 // routing
 server.get("/", function (req, res) {
   res.render("pages/index", { content: "This is home" });
 });
-// students
 server.use("/students", studentsRouter);
+server.use("/users", usersRouter);
 // fallback to error page
-server.use("*", function (req, res) {
-  res.render("pages/error");
+server.use(function (req, res) {
+  const error = {
+    status: 404,
+  };
+  res.render("pages/error", { error });
 });
+
+server.use((error, _, res, __) => {
+  console.log(error);
+  error.status ? res.status(error.status).render("pages/error", { error }) : res.status(500).render("pages/fail");
+})
 
 // start server
 const port = 3000;
