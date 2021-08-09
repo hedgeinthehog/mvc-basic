@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("../partials/head"); %>
 
-  <body>
-    <%- include("../partials/navigation"); %>
+<head>
+  <%- include('../partials/head'); %>
+</head>
 
-    <ul>
-        <% students.map(student => { %>
-            <li><a href="/students/<%= student.id_student %>"><%= student.name %></a></li>
+<body>
+  <%- include('../partials/navigation'); %>
+
+    <ul class="student-list">
+      <% students.map(student=> { %>
+        <li class="student-list-item"><a href="/students/<%= student.id_student %>" class="student-link">
+            <%= student.name %>
+              <%= student.surname %>
+          </a></li>
         <% }) %>
     </ul>
+</body>
 
-    <a href="/students/create">Add new Student</a>
-    
-  </body>
 </html>
